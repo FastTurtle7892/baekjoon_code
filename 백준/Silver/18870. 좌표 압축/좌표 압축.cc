@@ -10,8 +10,7 @@
 using namespace std;
 
 vector<int> v;
-map<int, int> m;
-vector<int> v_tmp;
+vector<int> v_idx;
 
 int main()
 {
@@ -24,21 +23,20 @@ int main()
 		v.push_back(input);
 	}
 
-	v_tmp = v;
-	sort(v_tmp.begin(), v_tmp.end());
+	v_idx = v;
+	sort(v_idx.begin(), v_idx.end());
+	v_idx.erase(unique(v_idx.begin(), v_idx.end()), v_idx.end());
 
-	int idx = 0;
-	for (int i = 0; i < v_tmp.size(); i++) {
-		
-		if (m.find(v_tmp[i]) == m.end()) {
-			m[v_tmp[i]] = idx;
-			idx++;
-		}
-	}
 	for (int i = 0; i < v.size(); i++) {
-		cout << m[v[i]] << " ";
+
+		cout << lower_bound(v_idx.begin(), v_idx.end(), v[i]) - v_idx.begin() << " ";
 	}
 	cout << "\n";
 
 	return 0;
 }
+
+// 이진 탐색 -> 원소 탐색 lower_bound, upper_bound (사용조건 : 오름차순 정렬)
+
+// lower_bound : 찾으려는 key값보다 같거나 큰 숫자가 배열에서 몇번째에 처음 등장?
+// upper_bound : 찾으려는 key값을 초과하는 숫자가 배열에서 몇번째에 처음 등장?
