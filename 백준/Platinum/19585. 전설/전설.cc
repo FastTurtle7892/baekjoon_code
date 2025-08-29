@@ -11,28 +11,27 @@
 using namespace std;
 
 struct TRIE;
-static vector<TRIE> nodes(4000*1000+1);
+
+//TRIE* nodes = new TRIE[4000 * 1000 + 1];
+
+//static vector<TRIE> nodes(4000*1000+1);
 static short prefixEnds[1001];
 static int prefixIdx;
 
 int newNodeIndex = 0;
-TRIE* newTRIE()
-{
-	return &nodes[newNodeIndex++];
-}
 
 struct TRIE {
 	//unordered_map<char, TRIE*> 
-	TRIE* Node[26];// = { 0, };
-	bool terminal;		// 단어 끝 표시
+	TRIE* Node[26];// = { 0, };// = { 0, };
+	bool terminal;//=false;		// 단어 끝 표시
 	/*
-	TRIE() : terminal(false) {
+	TRIE() : terminal(false) 
 
 		memset(Node, 0, sizeof(Node));
 	}
 	*/
 
-
+	static TRIE* nodes;
 	inline void insert(const char* str) {
 
 		TRIE* p = this;
@@ -70,11 +69,11 @@ struct TRIE {
 	}
 };
 //vector<TRIE> TRIE::nodes(1);
-
+TRIE* TRIE::nodes= (TRIE*)malloc(sizeof(TRIE)*(4000 * 1000 + 1));
 
 int main() {
 	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-	memset(nodes.data(), 0, sizeof(TRIE)*nodes.size());
+	memset(TRIE::nodes, 0, sizeof(TRIE)*(4000 * 1000 + 1));
 
 	TRIE* root = new TRIE();		// 트라이 생성
 
