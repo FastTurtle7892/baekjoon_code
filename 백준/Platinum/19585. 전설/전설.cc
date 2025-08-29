@@ -53,7 +53,7 @@ struct TRIE {
 	inline bool find(const char* str) 
 	{
 		prefixIdx = 0;
-		memset(prefixEnds, -1, sizeof(prefixEnds));
+		//memset(prefixEnds, -1, sizeof(prefixEnds));
 
 		TRIE* p = this;
 		int stringPos = 0;
@@ -65,6 +65,7 @@ struct TRIE {
 			str++;
 			stringPos++;
 		}
+		prefixEnds[prefixIdx] = -1;
 		return prefixIdx>0;		// 끝 표시
 	}
 };
