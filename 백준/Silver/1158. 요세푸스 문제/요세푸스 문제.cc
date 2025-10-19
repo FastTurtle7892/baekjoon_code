@@ -13,23 +13,22 @@ int main() {
 
     ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-    deque<int> d;
+    vector<int> vec;
     int N, M; cin >> N >> M;
 
-    int input;
-    for (int i = 1; i <= N; i++) {
-
-        d.push_back(i);
-    }
+    for (int i = 1; i <= N; i++) vec.push_back(i);
+    
     cout << "<";
-    while (!d.empty()) {
 
-        rotate(d.begin(), d.begin() + (M - 1) % d.size(), d.end());
-        cout << d.front();
-        if (d.size() > 1) cout << ", ";
+    int idx = 0;
+    for (int i = 0; i < N; i++) {
+
+        idx += (M - 1);
+        idx %= vec.size();
+        cout << vec[idx];
+        if (vec.size() > 1) cout << ", ";
         else cout << ">";
-
-        d.pop_front();
+        vec.erase(vec.begin() + idx);
     }
     cout << "\n";
     return 0;
