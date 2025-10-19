@@ -21,20 +21,15 @@ int main() {
 
         d.push_back(i);
     }
-    vector<int> ans;
+    cout << "<";
     while (!d.empty()) {
 
         rotate(d.begin(), d.begin() + (M - 1) % d.size(), d.end());
-        ans.push_back(d.front());
-        d.pop_front();
-    }
-    cout << "<";
-    for (int i = 0; i < N; i++) {
-        cout << ans[i];
-        if (i != N - 1) {
-            cout << ", ";
-        }
+        cout << d.front();
+        if (d.size() > 1) cout << ", ";
         else cout << ">";
+
+        d.pop_front();
     }
     cout << "\n";
     return 0;
