@@ -27,19 +27,8 @@ int isOutBound(int r, int c) {
 	return !(0 <= r && r < R && 0 <= c && c < C);
 }
 
-void init_visited() {
-
-	for (int r = 0; r < R; r++) {
-		for (int c = 0; c < C; c++) {
-			visited[r][c] = 0;
-		}
-	}
-
-}
-
 int bfs(int sr, int sc) {
 
-	init_visited();
 	queue<pair<int, int>> q;
 	visited[sr][sc] = 1;
 	q.push({ sr,sc });
@@ -57,12 +46,14 @@ int bfs(int sr, int sc) {
 			int f_c = now_c + dr[d][1];
 
 			if (isOutBound(f_r, f_c)) continue;
-			if (board[f_r][f_c] == 0) continue;
 			if (visited[f_r][f_c]) continue;
+			if (board[f_r][f_c] == 1) {
 
-			cnt++;
-			visited[f_r][f_c] = 1;
-			q.push({ f_r, f_c });
+				cnt++;
+				visited[f_r][f_c] = 1;
+				q.push({ f_r, f_c });
+
+			}
 		}
 	}
 	return cnt;
