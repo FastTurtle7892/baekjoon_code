@@ -8,9 +8,7 @@ using namespace std;
 
 int main() {
 
-    ios::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+    ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
     int N;
     cin >> N;
@@ -21,16 +19,16 @@ int main() {
     for (int i = 0; i < N; i++) {
         cin >> origin[i];
     }
+
     input = origin;
-
     sort(input.begin(), input.end());
+    input.erase(unique(input.begin(), input.end()), input.end());
 
-    unordered_map<int, int> u_map;
-    int cnt = 0;
-    for (int i = 0; i < N; i++) {
-        if(u_map.find(input[i]) == u_map.end())
-            u_map[input[i]] = cnt++;
+    for (int i = 0; i < origin.size(); i++) {
+
+        cout << lower_bound(input.begin(), input.end(), origin[i]) - input.begin() << " ";
+        
     }
-    for (auto i : origin) cout << u_map[i] << " ";
     cout << "\n";
+    return 0;
 }
