@@ -1,42 +1,36 @@
-#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
-#include <vector>
+#include <cstdio>
 #include <algorithm>
-#include <cstring>
-#include <climits>
-#include <string>
-#include <map>
+#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
-vector<int> v;
-vector<int> v_idx;
+int main() {
 
-int main()
-{
-	ios::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-	
-	int N;	cin >> N;
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-	for (int i = 0; i < N; i++) {
-		int input; cin >> input;
-		v.push_back(input);
-	}
+    int N;
+    cin >> N;
 
-	v_idx = v;
-	sort(v_idx.begin(), v_idx.end());
-	v_idx.erase(unique(v_idx.begin(), v_idx.end()), v_idx.end());
+    vector<int> input;
+    vector<int> origin;
+    origin.assign(N, 0);
+    for (int i = 0; i < N; i++) {
+        cin >> origin[i];
+    }
+    input = origin;
 
-	for (int i = 0; i < v.size(); i++) {
+    sort(input.begin(), input.end());
 
-		cout << lower_bound(v_idx.begin(), v_idx.end(), v[i]) - v_idx.begin() << " ";
-	}
-	cout << "\n";
-
-	return 0;
+    unordered_map<int, int> u_map;
+    int cnt = 0;
+    for (int i = 0; i < N; i++) {
+        if(u_map.find(input[i]) == u_map.end())
+            u_map[input[i]] = cnt++;
+    }
+    for (auto i : origin) cout << u_map[i] << " ";
+    cout << "\n";
 }
-
-// 이진 탐색 -> 원소 탐색 lower_bound, upper_bound (사용조건 : 오름차순 정렬)
-
-// lower_bound : 찾으려는 key값보다 같거나 큰 숫자가 배열에서 몇번째에 처음 등장?
-// upper_bound : 찾으려는 key값을 초과하는 숫자가 배열에서 몇번째에 처음 등장?
