@@ -17,6 +17,26 @@ int isOutBound(int r, int c){
     return !(0 <= r && r < R && 0 <= c && c < C);
 }
 
+int dfs(int sr, int sc) {
+
+    int sum = mmaps[sr][sc] -'0';
+    
+    for(int d=0; d<4; d++){
+
+        int f_r = sr + dr[d][0];
+        int f_c = sc + dr[d][1];
+
+        if(isOutBound(f_r, f_c)) continue;
+        if(mmaps[f_r][f_c] == 'X') continue;
+        if(visited[f_r][f_c]) continue;
+
+        visited[f_r][f_c] = 1;
+        sum += dfs(f_r,f_c);
+        
+    }
+    return sum;
+}
+
 int bfs(int sr, int sc) {
     
     int cnt = mmaps[sr][sc] - '0';
@@ -58,9 +78,9 @@ vector<int> solution(vector<string> maps) {
     
     for(int r=0; r<R; r++) {
         for(int c=0; c<C; c++) {
-            if(!visited[r][c] && maps[r][c] != 'X') {
-                int res = bfs(r,c);
-                ans.push_back(res);
+            if(!visited[r][c] && mmaps[r][c] != 'X') {
+                visited[r][c] = 1;
+                ans.push_back(dfs(r,c));
             }
         }
     }
